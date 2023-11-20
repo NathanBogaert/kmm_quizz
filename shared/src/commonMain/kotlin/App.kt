@@ -1,5 +1,6 @@
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalResourceApi::class)
@@ -23,3 +24,15 @@ val question3 = Question(3, "La réponse est Peut-être", 3, listOf(answer1, ans
 val quizz = Quizz(listOf(question1, question2, question3))
 
 expect fun getPlatformName(): String
+
+@Composable
+expect fun getBackgroundColor(): Color
+
+@Composable
+expect fun getForegroundColor(): Color
+
+@Composable
+expect fun getPrimaryColor(): Color
+
+@Composable
+expect fun getPrimaryDarkColor(): Color

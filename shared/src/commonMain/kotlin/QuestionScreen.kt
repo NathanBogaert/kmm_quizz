@@ -38,14 +38,14 @@ fun QuestionScreen(quizz: Quizz) {
     var answerSelected by remember { mutableStateOf(0) }
     var score by remember { mutableStateOf(0) }
     MaterialTheme {
-        Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
+        Box(modifier = Modifier.background(getBackgroundColor()).fillMaxSize()) {
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Card(shape = RoundedCornerShape(7.dp), modifier = Modifier.padding(vertical = 50.dp, horizontal = 40.dp)) {
+                Card(shape = RoundedCornerShape(7.dp), modifier = Modifier.padding(vertical = 50.dp, horizontal = 40.dp), contentColor = getForegroundColor()) {
                     Text(
                         text = quizz.questions[questionProgress].label,
                         fontSize = 24.sp,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.background(Color.White).padding(horizontal = 10.dp, vertical = 8.dp)
+                        modifier = Modifier.background(getPrimaryColor()).padding(horizontal = 10.dp, vertical = 8.dp)
                     )
                 }
                 for ((i, value) in quizz.questions[questionProgress].answers.withIndex()) {
@@ -71,13 +71,14 @@ fun QuestionScreen(quizz: Quizz) {
                         )
                         Text(
                             text = "Next"
+
                         )
                     }
                 }
                 LinearProgressIndicator(progress = animateFloatAsState(
                     targetValue = (questionProgress / (quizz.questions.size - 1).toFloat()),
                     animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec).value,
-                    modifier = Modifier.fillMaxWidth().size(20.dp))
+                    modifier = Modifier.fillMaxWidth().size(20.dp).background(getPrimaryColor()))
             }
         }
     }
