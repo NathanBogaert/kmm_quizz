@@ -35,12 +35,13 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun QuestionScreen(quizz: Quizz) {
     var questionProgress by remember { mutableStateOf(0) }
-    var answerSelected by remember { mutableStateOf(0) }
+    var answerSelected by remember { mutableStateOf(1) }
     var score by remember { mutableStateOf(0) }
     MaterialTheme {
         Box(modifier = Modifier.background(getBackgroundColor()).fillMaxSize()) {
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Card(shape = RoundedCornerShape(7.dp), modifier = Modifier.padding(vertical = 50.dp, horizontal = 40.dp), contentColor = getForegroundColor()) {
+                Card(shape = RoundedCornerShape(7.dp), modifier = Modifier.padding(vertical = 50.dp, horizontal = 40.dp),
+                    contentColor = getForegroundColor()) {
                     Text(
                         text = quizz.questions[questionProgress].label,
                         fontSize = 24.sp,
@@ -48,7 +49,7 @@ fun QuestionScreen(quizz: Quizz) {
                         modifier = Modifier.background(getPrimaryColor()).padding(horizontal = 10.dp, vertical = 8.dp)
                     )
                 }
-                for ((i, value) in quizz.questions[questionProgress].answers.withIndex()) {
+                for (value in quizz.questions[questionProgress].answers) {
                     Row(modifier = Modifier.align(Alignment.Start).padding(start = 60.dp, end = 80.dp),
                         verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(onClick = { answerSelected = value.id }, selected = (answerSelected == value.id))
@@ -71,7 +72,6 @@ fun QuestionScreen(quizz: Quizz) {
                         )
                         Text(
                             text = "Next"
-
                         )
                     }
                 }

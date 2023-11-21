@@ -9,7 +9,8 @@ fun App() {
     MaterialTheme {
         //WelcomeScreen()
         //ScoreScreen(10, 20)
-        QuestionScreen(quizz)
+        //QuestionScreen(quizz)
+        CreateScreen()
     }
 }
 
