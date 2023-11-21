@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -43,7 +45,7 @@ fun CreateScreen() {
     answerStr4 = ""
     MaterialTheme{
         Box(modifier = Modifier.background(getBackgroundColor()).fillMaxSize()) {
-            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 50.dp, horizontal = 40.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 50.dp, horizontal = 40.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
                 if (questionId == 1) {
                     TextField(
                         value = quizzName,

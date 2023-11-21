@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -26,7 +28,9 @@ fun ScoreScreen(score: Int, questionNumber: Int) {
         val background = if (score < (number / 2)) Color.Red else Color.Green
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
             Card(modifier = Modifier.padding(horizontal = 115.dp).align(Alignment.Center), shape = RoundedCornerShape(7.dp)) {
-                Column(Modifier.fillMaxWidth().background(background), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(Modifier.fillMaxWidth().background(background).verticalScroll(
+                    rememberScrollState()
+                ), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         text = "Score"
                     )
