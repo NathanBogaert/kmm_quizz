@@ -1,2 +1,5 @@
+import kotlinx.serialization.SerialInfo
+import kotlinx.serialization.Transient
+
 @kotlinx.serialization.Serializable
-data class Quiz(val name: String, val questions: List<Question>)
+data class Quiz(@Transient val name: String="My quiz", val questions: List<Question>)

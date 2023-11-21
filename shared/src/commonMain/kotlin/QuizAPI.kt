@@ -21,6 +21,6 @@ class QuizAPI {
         }
     }
     suspend fun getAllQuestions(): Quiz {
-        return httpClient.get("https://awl.li/devoxxkmm2023").body()
+        return httpClient.get("https://raw.githubusercontent.com/worldline/learning-kotlin-multiplatform/main/quiz.json").body()
     }
 }
