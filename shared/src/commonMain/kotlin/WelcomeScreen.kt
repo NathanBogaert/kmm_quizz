@@ -25,15 +25,15 @@ fun WelcomeScreen() {
             Card(modifier = Modifier.padding(horizontal = 10.dp).align(Alignment.Center), shape = RoundedCornerShape(7.dp), backgroundColor = Color.White) {
                 Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "Quizz",
+                        text = "Quiz",
                         fontSize = 28.sp
                     )
                     Text(
-                        text = "A simple quizz in kotlin KMM and compose",
+                        text = "A simple quiz in kotlin KMM and compose",
                         modifier = Modifier.padding(vertical = 13.dp, horizontal = 7.dp).align(Alignment.Start)
                     )
                     Button(onClick = {}) {
-                        Text("Start Quizz")
+                        Text("Start Quiz")
                     }
                 }
             }

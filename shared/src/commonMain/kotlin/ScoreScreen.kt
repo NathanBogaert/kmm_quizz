@@ -46,7 +46,7 @@ fun ScoreScreen(score: Int, questionNumber: Int) {
                             modifier = Modifier.padding(end = 12.dp)
                         )
                         Text(
-                            text = "Retake the quizz"
+                            text = "Retake the quiz"
                         )
                     }
                 }

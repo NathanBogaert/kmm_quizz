@@ -6,12 +6,11 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
-
     MaterialTheme {
         //WelcomeScreen()
         //ScoreScreen(10, 20)
-        //QuestionScreen(quizz)
-        WebImport("https://github.com/worldline/learning-kotlin-multiplatform/raw/main/quiz.json")
+        QuestionScreen(quiz)
+        //WebImport("https://github.com/worldline/learning-kotlin-multiplatform/raw/main/quiz.json")
     }
 }
 
@@ -23,7 +22,7 @@ val answer5 = Answer(3, "Peut-être")
 val question1 = Question(1, "La réponse est Oui", 1, listOf(answer1, answer2))
 val question2 = Question(2, "La réponse est Oui", 2, listOf(answer3, answer4))
 val question3 = Question(3, "La réponse est Peut-être", 3, listOf(answer1, answer2, answer5))
-val quizz = Quizz(listOf(question1, question2, question3))
+val quiz = Quiz(listOf(question1, question2, question3))
 
 expect fun getPlatformName(): String
 

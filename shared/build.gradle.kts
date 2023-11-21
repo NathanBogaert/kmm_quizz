@@ -1,8 +1,8 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "2.0.0-Beta1"
     id("com.android.library")
     id("org.jetbrains.compose")
+    kotlin("plugin.serialization") version "2.0.0-Beta1"
 }
 
 kotlin {
@@ -29,8 +29,10 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation("io.ktor:ktor-client-core:2.3.6")
-                implementation("io.ktor:ktor-client-cio:2.3.6")
+                implementation("io.ktor:ktor-client-core:2.3.6") // core source of ktor
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3") // For making asynchronous calls
+                implementation("io.ktor:ktor-client-content-negotiation:2.3.4") // Simplify handling of content type based deserialization
+                implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4") // make your dataclasses serializable
             }
         }
         val androidMain by getting {
