@@ -1,15 +1,23 @@
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+
+private val repository = QuizRepository()
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
     MaterialTheme {
+        val questions = repository.questionState.collectAsState()
+
+        if (questions.value.isNotEmpty()) {
+            QuestionScreen(questions.value)
+        }
         //WelcomeScreen()
         //ScoreScreen(10, 20)
-        QuestionScreen(quiz)
+        //QuestionScreen(quiz)
         //WebImport("https://github.com/worldline/learning-kotlin-multiplatform/raw/main/quiz.json")
     }
 }
