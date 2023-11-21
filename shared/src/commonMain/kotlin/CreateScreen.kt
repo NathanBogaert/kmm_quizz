@@ -38,21 +38,16 @@ fun CreateScreen() {
     var answerStr2 by remember { mutableStateOf("") }
     var answerStr3 by remember { mutableStateOf("") }
     var answerStr4 by remember { mutableStateOf("") }
-    questionStr = ""
-    answerStr1 = ""
-    answerStr2 = ""
-    answerStr3 = ""
-    answerStr4 = ""
     MaterialTheme{
         Box(modifier = Modifier.background(getBackgroundColor()).fillMaxSize()) {
-            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 50.dp, horizontal = 40.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
                 if (questionId == 1) {
                     TextField(
                         value = quizzName,
                         onValueChange = { if (it.length <= 128) quizzName = it
                         },
                         label = { Text("Quizz name") },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.padding(top = 25.dp).fillMaxWidth()
                     )
                     Text(
                         text = "${quizzName.length} / 128",
@@ -79,7 +74,7 @@ fun CreateScreen() {
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.padding(bottom = 20.dp).fillMaxWidth()
                 )
-                Row(modifier = Modifier.align(Alignment.Start).padding(start = 60.dp, end = 80.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp), verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(onClick = { correctAnswer = 1 }, selected = (correctAnswer == 1))
                     TextField(
                         value = answerStr1,
@@ -92,9 +87,9 @@ fun CreateScreen() {
                     text = "${answerStr1.length} / 128",
                     textAlign = TextAlign.End,
                     style = MaterialTheme.typography.caption,
-                    modifier = Modifier.padding(bottom = 10.dp).fillMaxWidth()
+                    modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
-                Row(modifier = Modifier.align(Alignment.Start).padding(start = 60.dp, end = 80.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp), verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(onClick = { correctAnswer = 2 }, selected = (correctAnswer == 2))
                     TextField(
                         value = answerStr2,
@@ -107,9 +102,9 @@ fun CreateScreen() {
                     text = "${answerStr2.length} / 128",
                     textAlign = TextAlign.End,
                     style = MaterialTheme.typography.caption,
-                    modifier = Modifier.padding(bottom = 10.dp).fillMaxWidth()
+                    modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
-                Row(modifier = Modifier.align(Alignment.Start).padding(start = 60.dp, end = 80.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp), verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(onClick = { correctAnswer = 3 }, selected = (correctAnswer == 3))
                     TextField(
                         value = answerStr3,
@@ -122,9 +117,9 @@ fun CreateScreen() {
                     text = "${answerStr3.length} / 128",
                     textAlign = TextAlign.End,
                     style = MaterialTheme.typography.caption,
-                    modifier = Modifier.padding(bottom = 10.dp).fillMaxWidth()
+                    modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
-                Row(modifier = Modifier.align(Alignment.Start).padding(start = 60.dp, end = 80.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp), verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(onClick = { correctAnswer = 4 }, selected = (correctAnswer == 4))
                     TextField(
                         value = answerStr4,
@@ -137,7 +132,7 @@ fun CreateScreen() {
                     text = "${answerStr4.length} / 128",
                     textAlign = TextAlign.End,
                     style = MaterialTheme.typography.caption,
-                    modifier = Modifier.padding(bottom = 10.dp).fillMaxWidth()
+                    modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
                 Button(onClick = {
                     if (quizzName != "" && questionStr != "" && answerStr1 != "" && answerStr2 != "") {
