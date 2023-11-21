@@ -82,10 +82,6 @@ android {
 }
 
 dependencies {
-
-
-
-    implementation("io.ktor:ktor-client-apache:2.3.6")
     implementation("androidx.compose.material3:material3:1.1.2")
     implementation("androidx.compose.material3:material3-window-size-class:1.1.2")
     implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
