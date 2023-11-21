@@ -6,11 +6,12 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
+
     MaterialTheme {
         //WelcomeScreen()
         //ScoreScreen(10, 20)
         //QuestionScreen(quizz)
-        CreateScreen()
+        WebImport("https://github.com/worldline/learning-kotlin-multiplatform/raw/main/quiz.json")
     }
 }
 
