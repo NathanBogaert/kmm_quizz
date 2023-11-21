@@ -1,7 +1,8 @@
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
+import moe.tlaster.precompose.PreComposeApp
+import moe.tlaster.precompose.navigation.Navigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 private val repository = QuizRepository()
@@ -9,16 +10,17 @@ private val repository = QuizRepository()
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
-    MaterialTheme {
-        val questions = repository.questionState.collectAsState()
-
-        /*if (questions.value.isNotEmpty()) {
-            QuestionScreen(questions.value)
-        }*/
-        WelcomeScreen(listOf(quiz1, quiz2, quiz3))
-        //ScoreScreen(10, 20)
-        //QuestionScreen(quiz)
-        //WebImport("https://github.com/worldline/learning-kotlin-multiplatform/raw/main/quiz.json")
+    PreComposeApp {
+        MaterialTheme {
+            navigation()
+            /*val questions = repository.questionState.collectAsState()
+            if (questions.value.isNotEmpty()) {
+                QuestionScreen(navigator = Navigator(), questions.value)
+            }*/
+            //WelcomeScreen(navigator = Navigator(), listOf(quiz1, quiz2, quiz3))
+            //ScoreScreen(navigator = Navigator(), 10, 20)
+            //QuestionScreen(navigator = Navigator(), listOf(question1, question2, question3))
+        }
     }
 }
 
@@ -31,8 +33,8 @@ val question1 = Question(1, "La réponse est Oui", 1, listOf(answer1, answer2))
 val question2 = Question(2, "La réponse est Oui", 2, listOf(answer3, answer4))
 val question3 = Question(3, "La réponse est Peut-être", 3, listOf(answer1, answer2, answer5))
 val quiz1 = Quiz("First quiz", listOf(question1, question2, question3))
-val quiz2 = Quiz("Second quiz", listOf(question1, question2, question3))
-val quiz3 = Quiz("Third quiz", listOf(question1, question2, question3))
+val quiz2 = Quiz("Second quiz", listOf(question2, question3, question1))
+val quiz3 = Quiz("Third quiz", listOf(question3, question2, question1))
 
 expect fun getPlatformName(): String
 

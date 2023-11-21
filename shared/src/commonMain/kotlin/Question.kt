@@ -1,2 +1,4 @@
+import kotlinx.serialization.SerialName
+
 @kotlinx.serialization.Serializable
-data class Question(val id: Int, val label: String, val correct_answer_id: Int, val answers: List<Answer>)
+data class Question(val id: Int, val label: String, @SerialName("correct_answer_id") val correctId: Int, val answers: List<Answer>)

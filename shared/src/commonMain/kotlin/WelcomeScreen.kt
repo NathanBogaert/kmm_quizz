@@ -1,6 +1,4 @@
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,9 +33,10 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
-fun WelcomeScreen(quiz: List<Quiz>) {
+fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
     var selectedQuiz by remember { mutableStateOf("") }
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
@@ -63,7 +62,14 @@ fun WelcomeScreen(quiz: List<Quiz>) {
                             }
                         }
                     }
-                    Button(onClick = {}) {
+                    Button(onClick = { var list: List<Question> = listOf()
+                        for (i in quiz) {
+                            if (i.name == selectedQuiz) {
+                                list = i.questions
+                                println("LISTE DES QUESTIONS: $list")
+                            }
+                        }
+                        navigator.navigate(route = "/quiz/$list")}) {
                         Text("Start Quiz")
                     }
                 }

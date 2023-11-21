@@ -20,9 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
-fun ScoreScreen(score: Int, questionNumber: Int) {
+fun ScoreScreen(navigator: Navigator, score: Int, questionNumber: Int) {
     MaterialTheme {
         var number = if (questionNumber % 2 == 0) questionNumber else questionNumber + 1
         val background = if (score < (number / 2)) Color.Red else Color.Green
@@ -39,7 +40,7 @@ fun ScoreScreen(score: Int, questionNumber: Int) {
                         fontSize = 28.sp,
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
-                    Button(onClick = {}) {
+                    Button(onClick = { navigator.navigate(route = "/welcome") }) {
                         Icon(
                             Icons.Rounded.Refresh,
                             contentDescription = null,

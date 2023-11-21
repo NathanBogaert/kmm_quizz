@@ -33,9 +33,10 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
-fun QuestionScreen(question: List<Question>) {
+fun QuestionScreen(navigator: Navigator, question: List<Question>) {
     var questionProgress by remember { mutableStateOf(0) }
     var answerSelected by remember { mutableStateOf(1) }
     var score by remember { mutableStateOf(0) }
@@ -63,8 +64,9 @@ fun QuestionScreen(question: List<Question>) {
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
-                    if (answerSelected == question[questionProgress].correct_answer_id) { score++ };
-                    if (questionProgress < (question.size - 1)) { questionProgress++ } },
+                    if (answerSelected == question[questionProgress].correctId) score++
+                    if (questionProgress < (question.size - 1)) questionProgress++ else navigator
+                        .navigate(route = "/score/$score/${question.size}")},
                     modifier = Modifier.padding(bottom = 25.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
@@ -82,7 +84,7 @@ fun QuestionScreen(question: List<Question>) {
                 progress = animateFloatAsState(
                     targetValue = (questionProgress / (question.size - 1).toFloat()),
                     animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec).value,
-                modifier = Modifier.fillMaxWidth().size(20.dp).background(getPrimaryColor())
+                    modifier = Modifier.fillMaxWidth().size(20.dp).background(getPrimaryColor())
             )
         }
     }
