@@ -37,6 +37,7 @@ val question3 = Question(3, "La réponse est Peut-être", 3, listOf(answer1, ans
 val quiz1 = Quiz("First quiz", listOf(question1, question2, question3))
 val quiz2 = Quiz("Second quiz", listOf(question2, question3, question1))
 val quiz3 = Quiz("Third quiz", listOf(question3, question2, question1))
+public val quizList = listOf<Quiz>(quiz1,quiz2,quiz3)
 
 expect fun getPlatformName(): String
 

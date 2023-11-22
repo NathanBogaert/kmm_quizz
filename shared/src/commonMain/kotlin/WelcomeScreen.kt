@@ -63,7 +63,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             }
                         }
                         println("--------------------------------------------------------------\nQUIZ $quizSelect\n--------------------------------------------------------------")
-                        navigator.navigate(route = "/quiz/$quizSelect")}) {
+                        navigator.navigate(route = "/quiz/${quizSelect.name}")}) {
                         Text("Start Quiz")
                     }
                 }
