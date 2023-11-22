@@ -33,8 +33,15 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
     var selectedQuiz by remember { mutableStateOf(quiz[0].name) }
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
-            Card(modifier = Modifier.padding(horizontal = 10.dp).align(Alignment.Center), shape = RoundedCornerShape(7.dp), backgroundColor = Color.White) {
-                Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+            Card(
+                modifier = Modifier.padding(horizontal = 15.dp).align(Alignment.Center),
+                shape = RoundedCornerShape(7.dp),
+                backgroundColor = Color.White
+            ) {
+                Column(
+                    Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
                         text = "Quiz",
                         fontSize = 28.sp
@@ -49,21 +56,32 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                                 selectedQuiz = i.name
                             }, modifier = Modifier.fillMaxWidth(.5f)) {
                                 if (selectedQuiz == i.name) {
-                                    Icon(Icons.Rounded.Check, contentDescription = null, modifier = Modifier.padding(end = 10.dp, bottom = 12.dp).align(Alignment.Bottom))
+                                    Icon(
+                                        Icons.Rounded.Check,
+                                        contentDescription = null,
+                                        modifier = Modifier.padding(end = 10.dp, bottom = 12.dp)
+                                            .align(Alignment.Bottom)
+                                    )
                                 }
                                 Text(i.name)
                             }
                         }
                     }
                     Row {
-                        Button(onClick = {
-                            navigator.navigate(route = "/quiz/$selectedQuiz")},
-                            Modifier.padding(horizontal = 10.dp)) {
+                        Button(
+                            onClick = {
+                                navigator.navigate(route = "/quiz/$selectedQuiz")
+                            },
+                            Modifier.padding(10.dp)
+                        ) {
                             Text("Start Quiz")
                         }
-                        Button(onClick = {
-                            navigator.navigate(route = "/create")},
-                            Modifier.padding(horizontal = 10.dp)) {
+                        Button(
+                            onClick = {
+                                navigator.navigate(route = "/create")
+                            },
+                            Modifier.padding(10.dp)
+                        ) {
                             Text("Create a quiz")
                         }
                     }

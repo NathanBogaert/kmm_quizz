@@ -40,13 +40,18 @@ fun CreateScreen(navigator: Navigator) {
     var answerStr3 by remember { mutableStateOf("") }
     var answerStr4 by remember { mutableStateOf("") }
     val questions: MutableList<Question> = mutableListOf()
-    MaterialTheme{
+    MaterialTheme {
         Box(modifier = Modifier.background(getBackgroundColor()).fillMaxSize()) {
-            Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp)
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 if (questionId == 1) {
                     TextField(
                         value = quizName,
-                        onValueChange = { if (it.length <= 128) quizName = it
+                        onValueChange = {
+                            if (it.length <= 128) quizName = it
                         },
                         label = { Text("Quiz name") },
                         modifier = Modifier.padding(top = 25.dp).fillMaxWidth()
@@ -76,7 +81,10 @@ fun CreateScreen(navigator: Navigator) {
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.padding(bottom = 20.dp).fillMaxWidth()
                 )
-                Row(modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     RadioButton(onClick = { correctAnswer = 1 }, selected = (correctAnswer == 1))
                     TextField(
                         value = answerStr1,
@@ -91,7 +99,10 @@ fun CreateScreen(navigator: Navigator) {
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
-                Row(modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     RadioButton(onClick = { correctAnswer = 2 }, selected = (correctAnswer == 2))
                     TextField(
                         value = answerStr2,
@@ -106,7 +117,10 @@ fun CreateScreen(navigator: Navigator) {
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
-                Row(modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     RadioButton(onClick = { correctAnswer = 3 }, selected = (correctAnswer == 3))
                     TextField(
                         value = answerStr3,
@@ -121,7 +135,10 @@ fun CreateScreen(navigator: Navigator) {
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
-                Row(modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.align(Alignment.Start).padding(start = 30.dp, end = 40.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     RadioButton(onClick = { correctAnswer = 4 }, selected = (correctAnswer == 4))
                     TextField(
                         value = answerStr4,
@@ -137,13 +154,30 @@ fun CreateScreen(navigator: Navigator) {
                     modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
                 Button(onClick = {
-                    if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
+                    if (answerStr4 != "" && answerStr3 == "") {
+                        println("Vous ne pouvez pas mettre de réponse 4 sans réponse 3")
+                    } else if ((correctAnswer == 3) && (answerStr3 == "")) {
+                        println("Vous ne pouvez pas choisir la réponse 3 comme bonne réponse si il n'y a pas de réponse 3")
+                    } else if ((correctAnswer == 4) && (answerStr4 == "")) {
+                        println("Vous ne pouvez pas choisir la réponse 4 comme bonne réponse si il n'y a pas de réponse 4")
+                    } else if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
                         val answerList = mutableListOf<Answer>()
                         answerList += Answer(id = 1, label = answerStr1)
                         answerList += Answer(id = 2, label = answerStr2)
-                        if (answerStr3 != "") answerList += Answer(id = 3, label = answerStr3)
-                        if (answerStr3 != "" && answerStr4 != "") answerList += Answer(id = 4, label = answerStr4)
-                        questions += Question(id = questionId, label = questionStr, correctId = correctAnswer, answers = answerList)
+                        if (answerStr3 != "") answerList += Answer(
+                            id = 3,
+                            label = answerStr3
+                        )
+                        if (answerStr3 != "" && answerStr4 != "") answerList += Answer(
+                            id = 4,
+                            label = answerStr4
+                        )
+                        questions += Question(
+                            id = questionId,
+                            label = questionStr,
+                            correctId = correctAnswer,
+                            answers = answerList
+                        )
                         println(questions)
                         questionStr = ""
                         answerStr1 = ""
@@ -164,17 +198,30 @@ fun CreateScreen(navigator: Navigator) {
                     )
                 }
                 Button(onClick = {
-                    if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
-                        val answerList= mutableListOf<Answer>()
+                    if (answerStr4 != "" && answerStr3 == "") {
+                        println("Vous ne pouvez pas mettre de réponse 4 sans réponse 3")
+                    } else if ((correctAnswer == 3) && (answerStr3 == "")) {
+                        println("Vous ne pouvez pas choisir la réponse 3 comme bonne réponse si il n'y a pas de réponse 3")
+                    } else if ((correctAnswer == 4) && (answerStr4 == "")) {
+                        println("Vous ne pouvez pas choisir la réponse 4 comme bonne réponse si il n'y a pas de réponse 4")
+                    } else if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
+                        val answerList = mutableListOf<Answer>()
                         navigator.navigate(route = "/welcome")
                         answerList += Answer(id = 1, label = answerStr1)
                         answerList += Answer(id = 2, label = answerStr2)
                         if (answerStr3 != "") answerList += Answer(id = 3, label = answerStr3)
-                        if (answerStr3 != "" && answerStr4 != "") answerList += Answer(id = 4, label = answerStr4)
-                        questions += Question(id = questionId, label = questionStr, correctId = correctAnswer, answers = answerList)
+                        if (answerStr3 != "" && answerStr4 != "") answerList += Answer(
+                            id = 4,
+                            label = answerStr4
+                        )
+                        questions += Question(
+                            id = questionId,
+                            label = questionStr,
+                            correctId = correctAnswer,
+                            answers = answerList
+                        )
                         quizList += Quiz(name = quizName, questions = questions)
                         println(questions)
-                        //println(quizList)
                     }
                 }) {
                     Icon(
