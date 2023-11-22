@@ -51,7 +51,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             }, modifier = Modifier.fillMaxWidth(.5f)) {
                                 Text(i.name)
                                 if (selectedQuiz == i.name) {
-                                    Icon(Icons.Rounded.Check, contentDescription = null, modifier = Modifier.padding(start = 10.dp, bottom = 12.dp).align(Alignment.Bottom))
+                                    Icon(Icons.Rounded.Check, contentDescription = null, modifier = Modifier.padding(start = 10.dp, bottom = 12.dp).align(Alignment.Bottom).background(getPrimaryColor()))
                                 }
                             }
                         }
