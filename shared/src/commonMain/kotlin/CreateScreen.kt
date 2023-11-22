@@ -40,7 +40,6 @@ fun CreateScreen(navigator: Navigator) {
     var answerStr3 by remember { mutableStateOf("") }
     var answerStr4 by remember { mutableStateOf("") }
     val questions: MutableList<Question> = mutableListOf()
-    val answerList: MutableList<Answer> = mutableListOf()
     MaterialTheme{
         Box(modifier = Modifier.background(getBackgroundColor()).fillMaxSize()) {
             Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -139,6 +138,7 @@ fun CreateScreen(navigator: Navigator) {
                 )
                 Button(onClick = {
                     if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
+                        val answerList = mutableListOf<Answer>()
                         answerList += Answer(id = 1, label = answerStr1)
                         answerList += Answer(id = 2, label = answerStr2)
                         if (answerStr3 != "") answerList += Answer(id = 3, label = answerStr3)
@@ -165,6 +165,7 @@ fun CreateScreen(navigator: Navigator) {
                 }
                 Button(onClick = {
                     if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
+                        val answerList= mutableListOf<Answer>()
                         navigator.navigate(route = "/welcome")
                         answerList += Answer(id = 1, label = answerStr1)
                         answerList += Answer(id = 2, label = answerStr2)
