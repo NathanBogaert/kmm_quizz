@@ -5,6 +5,7 @@ import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.navigation.transition.NavTransition
 
 private val quizList = listOf(quiz1, quiz2, quiz3)
+
 @Composable
 internal fun navigation() {
     val navigator = rememberNavigator()
@@ -19,10 +20,12 @@ internal fun navigation() {
                 WelcomeScreen(navigator, quizList)
         }
         scene(
-            route = "/quiz/{questionList}",
+            route = "/quiz/{quiz}",
             navTransition = NavTransition()) { backStackEntry ->
-            backStackEntry.path<List<Question>>("questionList")
-                ?.let { QuestionScreen(navigator, it) }
+            val quiz: Quiz? = backStackEntry.path<Quiz>("quiz")
+            if (quiz != null) {
+                QuestionScreen(navigator, quiz)
+            }
         }
         scene(
             route = "/score/{score}/{quizSize}",

@@ -10,16 +10,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,15 +24,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.toSize
 import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
 fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
     var selectedQuiz by remember { mutableStateOf("") }
+    lateinit var quizSelect: Quiz
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
             Card(modifier = Modifier.padding(horizontal = 10.dp).align(Alignment.Center), shape = RoundedCornerShape(7.dp), backgroundColor = Color.White) {
@@ -51,7 +45,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                         modifier = Modifier.padding(top = 13.dp, bottom = 5.dp).fillMaxWidth(.5f)
                     )
                     quiz.forEach { i ->
-                        Row() {
+                        Row {
                             DropdownMenuItem(onClick = {
                                 selectedQuiz = i.name
                             }, modifier = Modifier.fillMaxWidth(.5f)) {
@@ -62,14 +56,14 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             }
                         }
                     }
-                    Button(onClick = { var list: List<Question> = listOf()
+                    Button(onClick = {
                         for (i in quiz) {
                             if (i.name == selectedQuiz) {
-                                list = i.questions
-                                println("LISTE DES QUESTIONS: $list")
+                                quizSelect = i
                             }
                         }
-                        navigator.navigate(route = "/quiz/$list")}) {
+                        println("--------------------------------------------------------------\nQUIZ $quizSelect\n--------------------------------------------------------------")
+                        navigator.navigate(route = "/quiz/$quizSelect")}) {
                         Text("Start Quiz")
                     }
                 }

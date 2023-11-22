@@ -1,6 +1,5 @@
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,7 +35,7 @@ import androidx.compose.ui.unit.sp
 import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
-fun QuestionScreen(navigator: Navigator, question: List<Question>) {
+fun QuestionScreen(navigator: Navigator, quiz: Quiz) {
     var questionProgress by remember { mutableStateOf(0) }
     var answerSelected by remember { mutableStateOf(1) }
     var score by remember { mutableStateOf(0) }
@@ -46,13 +45,13 @@ fun QuestionScreen(navigator: Navigator, question: List<Question>) {
                 Card(shape = RoundedCornerShape(7.dp), modifier = Modifier.padding(vertical = 50.dp, horizontal = 40.dp),
                     contentColor = getForegroundColor()) {
                     Text(
-                        text = question[questionProgress].label,
+                        text = quiz.questions[questionProgress].label,
                         fontSize = 24.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.background(getPrimaryColor()).padding(horizontal = 10.dp, vertical = 8.dp)
                     )
                 }
-                for (value in question[questionProgress].answers) {
+                for (value in quiz.questions[questionProgress].answers) {
                     Row(modifier = Modifier.align(Alignment.Start).padding(start = 60.dp, end = 80.dp),
                         verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(onClick = { answerSelected = value.id }, selected = (answerSelected == value.id))
@@ -64,9 +63,9 @@ fun QuestionScreen(navigator: Navigator, question: List<Question>) {
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
-                    if (answerSelected == question[questionProgress].correctId) score++
-                    if (questionProgress < (question.size - 1)) questionProgress++ else navigator
-                        .navigate(route = "/score/$score/${question.size}")},
+                    if (answerSelected == quiz.questions[questionProgress].correctId) score++
+                    if (questionProgress < (quiz.questions.size - 1)) questionProgress++ else navigator
+                        .navigate(route = "/score/$score/${quiz.questions.size}")},
                     modifier = Modifier.padding(bottom = 25.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
@@ -82,7 +81,7 @@ fun QuestionScreen(navigator: Navigator, question: List<Question>) {
             }
             LinearProgressIndicator(
                 progress = animateFloatAsState(
-                    targetValue = (questionProgress / (question.size - 1).toFloat()),
+                    targetValue = (questionProgress / (quiz.questions.size - 1).toFloat()),
                     animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec).value,
                     modifier = Modifier.fillMaxWidth().size(20.dp).background(getPrimaryColor())
             )

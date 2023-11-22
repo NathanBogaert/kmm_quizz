@@ -1,5 +1,6 @@
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.navigation.Navigator
@@ -14,6 +15,7 @@ fun App() {
         MaterialTheme {
             navigation()
             /*val questions = repository.questionState.collectAsState()
+            println(questions.value)
             if (questions.value.isNotEmpty()) {
                 QuestionScreen(navigator = Navigator(), questions.value)
             }*/

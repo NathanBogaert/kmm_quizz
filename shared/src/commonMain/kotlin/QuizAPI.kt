@@ -13,7 +13,7 @@ class QuizAPI {
     private val httpClient = HttpClient {
         install(ContentNegotiation) {
             json(
-                contentType = ContentType.Text.Plain, // because Github is not returning an 'application/json' header
+                contentType = ContentType.Text.Plain,
                 json = Json {
                     ignoreUnknownKeys = true
                     useAlternativeNames = false
@@ -22,5 +22,6 @@ class QuizAPI {
     }
     suspend fun getAllQuestions(): Quiz {
         return httpClient.get("https://raw.githubusercontent.com/worldline/learning-kotlin-multiplatform/main/quiz.json").body()
+        //return httpClient.get("http://localhost:8080").body()
     }
 }
