@@ -1,6 +1,7 @@
 import androidx.compose.runtime.Composable
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.path
+import moe.tlaster.precompose.navigation.query
 import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.navigation.transition.NavTransition
 
@@ -15,21 +16,18 @@ internal fun navigation() {
         initialRoute = "/welcome",
     ) {
         scene(
-            route = "/welcome",
-            navTransition = NavTransition()) {
+            route = "/welcome") {
                 WelcomeScreen(navigator, quizList)
         }
         scene(
-            route = "/quiz/{quiz}",
-            navTransition = NavTransition()) { backStackEntry ->
-            val quiz: Quiz? = backStackEntry.path<Quiz>("quiz")
-            if (quiz != null) {
-                QuestionScreen(navigator, quiz)
-            }
+            route = "/quiz") { backStackEntry ->
+            //val quiz: Quiz? = backStackEntry.query<Quiz>("quiz")
+            //if (quiz != null) {
+                QuestionScreen(navigator, quiz1)
+            //}
         }
         scene(
-            route = "/score/{score}/{quizSize}",
-            navTransition = NavTransition()) { backStackEntry ->
+            route = "/score/{score}/{quizSize}") { backStackEntry ->
             val score: Int? = backStackEntry.path<Int>("score")
             val quizSize: Int? = backStackEntry.path<Int>("quizSize")
             if (score != null && quizSize != null) {

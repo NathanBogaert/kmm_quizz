@@ -31,7 +31,7 @@ import moe.tlaster.precompose.navigation.Navigator
 @Composable
 fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
     var selectedQuiz by remember { mutableStateOf("") }
-    lateinit var quizSelect: Quiz
+    //lateinit var quizSelect: Quiz
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
             Card(modifier = Modifier.padding(horizontal = 10.dp).align(Alignment.Center), shape = RoundedCornerShape(7.dp), backgroundColor = Color.White) {
@@ -57,13 +57,13 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                         }
                     }
                     Button(onClick = {
-                        for (i in quiz) {
+                        /*for (i in quiz) {
                             if (i.name == selectedQuiz) {
                                 quizSelect = i
                             }
                         }
-                        println("--------------------------------------------------------------\nQUIZ $quizSelect\n--------------------------------------------------------------")
-                        navigator.navigate(route = "/quiz/$quizSelect")}) {
+                        println("--------------------------------------------------------------\nQUIZ $quizSelect\n--------------------------------------------------------------")*/
+                        navigator.navigate(route = "/quiz")}) {
                         Text("Start Quiz")
                     }
                 }
