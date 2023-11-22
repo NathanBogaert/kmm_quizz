@@ -31,7 +31,7 @@ import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
 fun CreateScreen(navigator: Navigator) {
-    var quizzName by remember { mutableStateOf("") }
+    var quizName by remember { mutableStateOf("") }
     var questionId by remember { mutableStateOf(1) }
     var questionStr by remember { mutableStateOf("") }
     var correctAnswer by remember { mutableStateOf(1) }
@@ -39,26 +39,28 @@ fun CreateScreen(navigator: Navigator) {
     var answerStr2 by remember { mutableStateOf("") }
     var answerStr3 by remember { mutableStateOf("") }
     var answerStr4 by remember { mutableStateOf("") }
+    val questions: MutableList<Question> = mutableListOf()
+    val answerList: MutableList<Answer> = mutableListOf()
     MaterialTheme{
         Box(modifier = Modifier.background(getBackgroundColor()).fillMaxSize()) {
             Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
                 if (questionId == 1) {
                     TextField(
-                        value = quizzName,
-                        onValueChange = { if (it.length <= 128) quizzName = it
+                        value = quizName,
+                        onValueChange = { if (it.length <= 128) quizName = it
                         },
-                        label = { Text("Quizz name") },
+                        label = { Text("Quiz name") },
                         modifier = Modifier.padding(top = 25.dp).fillMaxWidth()
                     )
                     Text(
-                        text = "${quizzName.length} / 128",
+                        text = "${quizName.length} / 128",
                         textAlign = TextAlign.End,
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)
                     )
                 } else {
                     Text(
-                        text = quizzName,
+                        text = quizName,
                         fontSize = 22.sp,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
@@ -136,7 +138,13 @@ fun CreateScreen(navigator: Navigator) {
                     modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
                 Button(onClick = {
-                    if (quizzName != "" && questionStr != "" && answerStr1 != "" && answerStr2 != "") {
+                    if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
+                        answerList += Answer(id = 1, label = answerStr1)
+                        answerList += Answer(id = 2, label = answerStr2)
+                        if (answerStr3 != "") answerList += Answer(id = 3, label = answerStr3)
+                        if (answerStr3 != "" && answerStr4 != "") answerList += Answer(id = 4, label = answerStr4)
+                        questions += Question(id = questionId, label = questionStr, correctId = correctAnswer, answers = answerList)
+                        println(questions)
                         questionStr = ""
                         answerStr1 = ""
                         answerStr2 = ""
@@ -156,8 +164,16 @@ fun CreateScreen(navigator: Navigator) {
                     )
                 }
                 Button(onClick = {
-                    if (quizzName != "" && questionStr != "" && answerStr1 != "" && answerStr2 != "") {
+                    if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
                         navigator.navigate(route = "/welcome")
+                        answerList += Answer(id = 1, label = answerStr1)
+                        answerList += Answer(id = 2, label = answerStr2)
+                        if (answerStr3 != "") answerList += Answer(id = 3, label = answerStr3)
+                        if (answerStr3 != "" && answerStr4 != "") answerList += Answer(id = 4, label = answerStr4)
+                        questions += Question(id = questionId, label = questionStr, correctId = correctAnswer, answers = answerList)
+                        quizList += Quiz(name = quizName, questions = questions)
+                        println(questions)
+                        //println(quizList)
                     }
                 }) {
                     Icon(

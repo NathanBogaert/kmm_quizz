@@ -65,9 +65,9 @@ val quiz1 = Quiz("Questions sur Efficom", listOf(
         )
     )
 ))
-val quiz2 = Quiz("Second quiz", listOf(question2, question3, question1))
+val quiz2 = Quiz("Second quiz", listOf(question2))
 val quiz3 = Quiz("Third quiz", listOf(question3, question2, question1))
-val quizList = listOf(quiz1,quiz2,quiz3)
+var quizList = listOf(quiz1,quiz2,quiz3)
 
 expect fun getPlatformName(): String
 
