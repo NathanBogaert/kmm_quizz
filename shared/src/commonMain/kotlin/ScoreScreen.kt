@@ -28,10 +28,15 @@ fun ScoreScreen(navigator: Navigator, score: Int, questionNumber: Int) {
         var number = if (questionNumber % 2 == 0) questionNumber else questionNumber + 1
         val background = if (score < (number / 2)) Color.Red else Color.Green
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
-            Card(modifier = Modifier.padding(horizontal = 115.dp).align(Alignment.Center), shape = RoundedCornerShape(7.dp)) {
-                Column(Modifier.fillMaxWidth().background(background).verticalScroll(
-                    rememberScrollState()
-                ), horizontalAlignment = Alignment.CenterHorizontally) {
+            Card(
+                modifier = Modifier.padding(horizontal = 115.dp).align(Alignment.Center),
+                shape = RoundedCornerShape(7.dp)
+            ) {
+                Column(
+                    Modifier.fillMaxWidth().background(background).verticalScroll(
+                        rememberScrollState()
+                    ), horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
                         text = "Score"
                     )

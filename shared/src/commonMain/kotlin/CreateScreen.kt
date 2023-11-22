@@ -28,6 +28,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import moe.tlaster.precompose.navigation.Navigator
+import network.data.Answer
+import network.data.Question
+import network.data.Quiz
 
 @Composable
 fun CreateScreen(navigator: Navigator) {
@@ -53,7 +56,7 @@ fun CreateScreen(navigator: Navigator) {
                         onValueChange = {
                             if (it.length <= 128) quizName = it
                         },
-                        label = { Text("Quiz name") },
+                        label = { Text("network.data.Quiz name") },
                         modifier = Modifier.padding(top = 25.dp).fillMaxWidth()
                     )
                     Text(
@@ -72,7 +75,7 @@ fun CreateScreen(navigator: Navigator) {
                 TextField(
                     value = questionStr,
                     onValueChange = { if (it.length <= 128) questionStr = it },
-                    label = { Text("Question") },
+                    label = { Text("network.data.Question") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(

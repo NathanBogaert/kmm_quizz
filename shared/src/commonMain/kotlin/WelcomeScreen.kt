@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import moe.tlaster.precompose.navigation.Navigator
+import network.data.Quiz
 
 @Composable
 fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
@@ -43,7 +44,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Quiz",
+                        text = "network.data.Quiz",
                         fontSize = 28.sp
                     )
                     Text(
@@ -74,7 +75,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             },
                             Modifier.padding(10.dp)
                         ) {
-                            Text("Start Quiz")
+                            Text("Start network.data.Quiz")
                         }
                         Button(
                             onClick = {

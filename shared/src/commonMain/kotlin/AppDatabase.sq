@@ -1,40 +1,40 @@
-CREATE TABLE Quiz (
+CREATE TABLE network.data.Quiz (
     name VARCHAR(128) NOT NULL,
     questions JSON NOT NULL
 );
 
-CREATE TABLE Question (
+CREATE TABLE network.data.Question (
     id INTEGER NOT NULL,
     label VARCHAR(128) NOT NULL,
     correctId INTEGER NOT NULL,
     answers JSON NOT NULL
 );
 
-CREATE TABLE Answer (
+CREATE TABLE network.data.Answer (
     id INTEGER NOT NULL,
     label VARCHAR(128) NOT NULL
 );
 
 insertQuiz:
-INSERT INTO Quiz(name, questions)
+INSERT INTO network.data.Quiz(name, questions)
 VALUES (?, ?);
 
 insertQuestion:
-INSERT INTO Question(id, label, correctId, answers)
+INSERT INTO network.data.Question(id, label, correctId, answers)
 VALUES (?, ?, ?, ?);
 
 insertAnswer:
-INSERT INTO Answer(id, label)
+INSERT INTO network.data.Answer(id, label)
 VALUES (?, ?);
 
 selectAllQuiz:
 SELECT *
-FROM Quiz;
+FROM network.data.Quiz;
 
 selectAllQuestion:
 SELECT *
-FROM Question;
+FROM network.data.Question;
 
 selectAllAnswer:
 SELECT *
-FROM Answer;
+FROM network.data.Answer;
