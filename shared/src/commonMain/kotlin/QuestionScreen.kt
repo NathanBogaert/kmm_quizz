@@ -65,7 +65,8 @@ fun QuestionScreen(navigator: Navigator, quiz: Quiz) {
                 Button(onClick = {
                     if (answerSelected == quiz.questions[questionProgress].correctId) score++
                     if (questionProgress < (quiz.questions.size - 1)) questionProgress++ else navigator
-                        .navigate(route = "/score/$score/${quiz.questions.size}")},
+                        .navigate(route = "/score/$score/${quiz.questions.size}")
+                        answerSelected = 1},
                     modifier = Modifier.padding(bottom = 25.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(

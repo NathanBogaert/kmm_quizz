@@ -30,8 +30,7 @@ import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
 fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
-    var selectedQuiz by remember { mutableStateOf("") }
-    lateinit var quizSelect: Quiz
+    var selectedQuiz by remember { mutableStateOf(quiz[0].name) }
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
             Card(modifier = Modifier.padding(horizontal = 10.dp).align(Alignment.Center), shape = RoundedCornerShape(7.dp), backgroundColor = Color.White) {
@@ -49,22 +48,24 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             DropdownMenuItem(onClick = {
                                 selectedQuiz = i.name
                             }, modifier = Modifier.fillMaxWidth(.5f)) {
-                                Text(i.name)
                                 if (selectedQuiz == i.name) {
-                                    Icon(Icons.Rounded.Check, contentDescription = null, modifier = Modifier.padding(start = 10.dp, bottom = 12.dp).align(Alignment.Bottom).background(getPrimaryColor()))
+                                    Icon(Icons.Rounded.Check, contentDescription = null, modifier = Modifier.padding(end = 10.dp, bottom = 12.dp).align(Alignment.Bottom))
                                 }
+                                Text(i.name)
                             }
                         }
                     }
-                    Button(onClick = {
-                        for (i in quiz) {
-                            if (i.name == selectedQuiz) {
-                                quizSelect = i
-                            }
+                    Row {
+                        Button(onClick = {
+                            navigator.navigate(route = "/quiz/$selectedQuiz")},
+                            Modifier.padding(horizontal = 10.dp)) {
+                            Text("Start Quiz")
                         }
-                        println("--------------------------------------------------------------\nQUIZ $quizSelect\n--------------------------------------------------------------")
-                        navigator.navigate(route = "/quiz/${quizSelect.name}")}) {
-                        Text("Start Quiz")
+                        Button(onClick = {
+                            navigator.navigate(route = "/create")},
+                            Modifier.padding(horizontal = 10.dp)) {
+                            Text("Create a quiz")
+                        }
                     }
                 }
             }

@@ -27,9 +27,10 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
-fun CreateScreen() {
+fun CreateScreen(navigator: Navigator) {
     var quizzName by remember { mutableStateOf("") }
     var questionId by remember { mutableStateOf(1) }
     var questionStr by remember { mutableStateOf("") }
@@ -156,13 +157,7 @@ fun CreateScreen() {
                 }
                 Button(onClick = {
                     if (quizzName != "" && questionStr != "" && answerStr1 != "" && answerStr2 != "") {
-                        questionStr = ""
-                        answerStr1 = ""
-                        answerStr2 = ""
-                        answerStr3 = ""
-                        answerStr4 = ""
-                        questionId++
-                        correctAnswer = 1
+                        navigator.navigate(route = "/welcome")
                     }
                 }) {
                     Icon(

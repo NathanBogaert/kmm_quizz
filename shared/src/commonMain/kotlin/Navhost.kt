@@ -40,5 +40,10 @@ internal fun navigation() {
                 ScoreScreen(navigator, score, quizSize)
             }
         }
+        scene(
+            route = "/create",
+            navTransition = NavTransition()) {
+            CreateScreen(navigator)
+        }
     }
 }
