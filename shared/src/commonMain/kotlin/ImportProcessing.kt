@@ -59,6 +59,7 @@ suspend fun getURLData(url: String): String {
 fun ImportProcess(navigator: Navigator, url: String) {
     var url=url.decodeURLPart()
     var result by remember { mutableStateOf("Loading") }
+    var isReady by remember { mutableStateOf(false) }
     var importedQuiz by remember { mutableStateOf(Quiz("Placeholder",listOf())) }
     LaunchedEffect(url) {
         val data = withContext(Dispatchers.IO) {
@@ -76,6 +77,7 @@ fun ImportProcess(navigator: Navigator, url: String) {
             val newquiz= Json.decodeFromString<Quiz>(data.toString())
             result="Found a quiz with ${newquiz.questions.count()} questions!"
             importedQuiz=newquiz
+            isReady=true
         }catch(t: Throwable) {
             println(UrlEncoderUtil.encode(t.toString()))
             navigator.navigate(route = "/import/${UrlEncoderUtil.encode(t.toString())}")
@@ -92,6 +94,7 @@ fun ImportProcess(navigator: Navigator, url: String) {
                     )
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Button(
+                            enabled = isReady,
                             colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
                             onClick = {
                                 importedQuiz.name="My imported quiz ${importedquizList.count()+1}"
