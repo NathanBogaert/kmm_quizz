@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
@@ -156,7 +157,9 @@ fun CreateScreen(navigator: Navigator) {
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
-                Button(onClick = {
+                Button(
+                    colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
+                    onClick = {
                     if (answerStr4 != "" && answerStr3 == "") {
                         println("Vous ne pouvez pas mettre de réponse 4 sans réponse 3")
                     } else if ((correctAnswer == 3) && (answerStr3 == "")) {
@@ -200,7 +203,9 @@ fun CreateScreen(navigator: Navigator) {
                         text = "Next"
                     )
                 }
-                Button(onClick = {
+                Button(
+                    colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
+                    onClick = {
                     if (answerStr4 != "" && answerStr3 == "") {
                         println("Vous ne pouvez pas mettre de réponse 4 sans réponse 3")
                     } else if ((correctAnswer == 3) && (answerStr3 == "")) {
