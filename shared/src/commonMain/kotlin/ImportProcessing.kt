@@ -1,6 +1,7 @@
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -8,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -15,6 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,8 +41,14 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
 import moe.tlaster.precompose.navigation.Navigator
 import net.thauvin.erik.urlencoder.UrlEncoderUtil
+import network.data.Question
+import network.data.Quiz
+
 
 suspend fun getURLData(url: String): String {
     return HttpClient().use { client ->
@@ -50,6 +59,7 @@ suspend fun getURLData(url: String): String {
 fun ImportProcess(navigator: Navigator, url: String) {
     var url=url.decodeURLPart()
     var result by remember { mutableStateOf("Loading") }
+    var importedQuiz by remember { mutableStateOf(Quiz("Placeholder",listOf())) }
     LaunchedEffect(url) {
         val data = withContext(Dispatchers.IO) {
             try {
@@ -62,7 +72,14 @@ fun ImportProcess(navigator: Navigator, url: String) {
                 navigator.navigate(route = "/import/NetworkFailure!-${UrlEncoderUtil.encode(t.toString())}")
             }
         }
-        result = data.toString()
+        try{
+            val newquiz= Json.decodeFromString<Quiz>(data.toString())
+            result="Trouvé un quiz de ${newquiz.questions.count()} questions"
+            importedQuiz=newquiz
+        }catch(t: Throwable) {
+            println(UrlEncoderUtil.encode(t.toString()))
+            navigator.navigate(route = "/import/${UrlEncoderUtil.encode(t.toString())}")
+        }
     }
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
@@ -73,16 +90,40 @@ fun ImportProcess(navigator: Navigator, url: String) {
                     Text(
                         text = result
                     )
-                    Button(onClick = {}) {
-                        Icon(
-                            Icons.Outlined.CheckCircle,
-                            contentDescription = null,
-                            modifier = Modifier.padding(end = 12.dp)
-                        )
-                        Text(
-                            text = "Import"
-                        )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Button(
+                            colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
+                            modifier = Modifier.padding(10.dp),
+                            onClick = {
+                                navigator.navigate("/import")
+                            }) {
+                            Icon(
+                                Icons.Rounded.ArrowBack,
+                                contentDescription = null,
+                                modifier = Modifier.padding(end = 12.dp)
+                            )
+                            Text(
+                                text = "Back"
+                            )
+                        }
+                        Button(
+                            colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
+                            onClick = {
+                                quizList+=importedQuiz
+                                navigator.navigate(route = "/import/${UrlEncoderUtil.encode("Import succeessful!")}")
+                            }
+                        ) {
+                            Icon(
+                                Icons.Outlined.CheckCircle,
+                                contentDescription = null,
+                                modifier = Modifier.padding(end = 12.dp)
+                            )
+                            Text(
+                                text = "Import"
+                            )
+                        }
                     }
+
                 }
             }
         }
