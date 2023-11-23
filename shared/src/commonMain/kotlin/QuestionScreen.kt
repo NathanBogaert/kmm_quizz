@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import moe.tlaster.precompose.navigation.Navigator
+import network.data.Quiz
 
 @Composable
 fun QuestionScreen(navigator: Navigator, quiz: Quiz) {
@@ -42,20 +43,33 @@ fun QuestionScreen(navigator: Navigator, quiz: Quiz) {
     var score by remember { mutableStateOf(0) }
     MaterialTheme {
         Box(modifier = Modifier.background(getBackgroundColor()).fillMaxSize()) {
-            Column(modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
-                Card(shape = RoundedCornerShape(7.dp), modifier = Modifier.padding(vertical = 50.dp, horizontal = 40.dp),
-                    contentColor = getForegroundColor()) {
+            Column(
+                modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Card(
+                    shape = RoundedCornerShape(7.dp),
+                    modifier = Modifier.padding(vertical = 50.dp, horizontal = 40.dp),
+                    contentColor = getForegroundColor()
+                ) {
                     Text(
                         text = quiz.questions[questionProgress].label,
                         fontSize = 24.sp,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.background(getPrimaryColor()).padding(horizontal = 10.dp, vertical = 8.dp)
+                        modifier = Modifier.background(getPrimaryColor())
+                            .padding(horizontal = 10.dp, vertical = 8.dp)
                     )
                 }
                 for (value in quiz.questions[questionProgress].answers) {
-                    Row(modifier = Modifier.align(Alignment.Start).padding(start = 60.dp, end = 80.dp),
-                        verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(onClick = { answerSelected = value.id }, selected = (answerSelected == value.id))
+                    Row(
+                        modifier = Modifier.align(Alignment.Start)
+                            .padding(start = 60.dp, end = 80.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            onClick = { answerSelected = value.id },
+                            selected = (answerSelected == value.id)
+                        )
                         Text(
                             text = value.label,
                             modifier = Modifier.padding(start = 6.dp)
@@ -67,8 +81,18 @@ fun QuestionScreen(navigator: Navigator, quiz: Quiz) {
                     if (answerSelected == quiz.questions[questionProgress].correctId) score++
                     if (questionProgress < (quiz.questions.size - 1)) questionProgress++ else navigator
                         .navigate(route = "/score/$score/${quiz.questions.size}")},
-                    colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
+                    
                     modifier = Modifier.padding(bottom = 25.dp)) {
+                Button(
+                    onClick = {
+                        if (answerSelected == quiz.questions[questionProgress].correctId) score++
+                        if (questionProgress < (quiz.questions.size - 1)) questionProgress++ else navigator
+                            .navigate(route = "/score/$score/${quiz.questions.size}")
+                        answerSelected = 1
+                    },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
+                    modifier = Modifier.padding(bottom = 10.dp, top = 10.dp).background(getPrimaryColor())
+                ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             Icons.Rounded.ArrowBack,
@@ -84,9 +108,11 @@ fun QuestionScreen(navigator: Navigator, quiz: Quiz) {
             LinearProgressIndicator(
                 progress = animateFloatAsState(
                     targetValue = (questionProgress / (quiz.questions.size - 1).toFloat()),
-                    animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec).value,
-                    modifier = Modifier.fillMaxWidth().size(20.dp).background(getPrimaryColor())
+                    animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
+                ).value,
+                modifier = Modifier.fillMaxWidth().size(20.dp).background(getPrimaryColor())
             )
         }
+    }
     }
 }

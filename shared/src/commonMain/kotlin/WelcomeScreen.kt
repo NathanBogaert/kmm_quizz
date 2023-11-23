@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import moe.tlaster.precompose.navigation.Navigator
+import network.data.Quiz
 
 @Composable
 fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
@@ -35,14 +36,19 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
     var isQuizSelected by remember { mutableStateOf(false) }
     val primaryDarkColor = getPrimaryDarkColor()
     var buttonColor by remember { mutableStateOf(primaryDarkColor) }
-
-    lateinit var quizSelect: Quiz
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
-            Card(modifier = Modifier.padding(horizontal = 10.dp).align(Alignment.Center), shape = RoundedCornerShape(7.dp), backgroundColor = Color.White) {
-                Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+            Card(
+                modifier = Modifier.padding(horizontal = 15.dp).align(Alignment.Center),
+                shape = RoundedCornerShape(7.dp),
+                backgroundColor = Color.White
+            ) {
+                Column(
+                    Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
-                        text = "Quiz",
+                        text = "network.data.Quiz",
                         fontSize = 28.sp
                     )
                     Text(
@@ -54,27 +60,41 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             DropdownMenuItem(onClick = {
                                 selectedQuiz = i.name
                             }, modifier = Modifier.fillMaxWidth(.5f)) {
-                                Text(i.name)
                                 if (selectedQuiz == i.name) {
                                     isQuizSelected = true
                                     buttonColor = getPrimaryColor()
-                                    Icon(Icons.Rounded.Check, contentDescription = null, modifier = Modifier.padding(start = 10.dp, bottom = 12.dp).align(Alignment.Bottom).background(getPrimaryColor()))
+                                    Icon(
+                                        Icons.Rounded.Check,
+                                        contentDescription = null,
+                                        modifier = Modifier.padding(end = 10.dp, bottom = 12.dp)
+                                            .align(Alignment.Bottom)
+                                            .background(getPrimaryColor())
+                                    )
                                 }
+                                Text(i.name)
                             }
                         }
                     }
-                    Button(
-                        enabled = isQuizSelected,
-                        colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
-                        onClick = {
-                        for (i in quiz) {
-                            if (i.name == selectedQuiz) {
-                                quizSelect = i
-                            }
+                    Row {
+                        Button(
+                            enabled = isQuizSelected,
+                            colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
+                            onClick = {
+                                navigator.navigate(route = "/quiz/$selectedQuiz")
+                            },
+                            modifier = Modifier.padding(10.dp)
+                        ) {
+                            Text("Start $selectedQuiz")
                         }
-                        println("--------------------------------------------------------------\nQUIZ $quizSelect\n--------------------------------------------------------------")
-                        navigator.navigate(route = "/quiz/${quizSelect.name}")}) {
-                        Text("Start Quiz")
+                        Button(
+                            colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
+                            onClick = {
+                                navigator.navigate(route = "/create")
+                            },
+                            modifier = Modifier.padding(10.dp)
+                        ) {
+                            Text("Create a quiz")
+                        }
                     }
                 }
             }

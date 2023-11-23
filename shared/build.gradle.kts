@@ -3,6 +3,8 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.compose")
     kotlin("plugin.serialization") version "2.0.0-Beta1"
+    id("com.squareup.sqldelight").version("1.5.5")
+
 }
 
 kotlin {
@@ -34,6 +36,8 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:2.3.4") // Simplify handling of content type based deserialization
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4") // make your dataclasses serializable
                 api("moe.tlaster:precompose:1.5.7")
+                implementation("com.squareup.sqldelight:runtime:1.5.5")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
             }
         }
         val androidMain by getting {
@@ -42,6 +46,7 @@ kotlin {
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
                 implementation("io.ktor:ktor-client-android:2.3.6")
+                implementation("com.squareup.sqldelight:android-driver:1.5.5")
             }
         }
         val iosX64Main by getting
@@ -54,6 +59,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies{
                 implementation("io.ktor:ktor-client-darwin:2.3.6")
+                implementation("com.squareup.sqldelight:native-driver:1.5.5")
             }
         }
         val desktopMain by getting {
@@ -89,4 +95,10 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.1.2")
     implementation("androidx.compose.material3:material3-window-size-class:1.1.2")
     implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.jetbrains.handson.kmm.shared.cache"
+    }
 }

@@ -15,16 +15,18 @@ internal fun navigation() {
     ) {
         scene(
             route = "/welcome",
-            navTransition = NavTransition()) {
-                WelcomeScreen(navigator, quizList)
+            navTransition = NavTransition()
+        ) {
+            WelcomeScreen(navigator, quizList)
         }
         scene(
             route = "/quiz/{quizname}",
-            navTransition = NavTransition()) { backStackEntry ->
+            navTransition = NavTransition()
+        ) { backStackEntry ->
             val quizname: String? = backStackEntry.path<String>("quizname")
             if (quizname != null) {
                 quizList.forEach {
-                    if(it.name==quizname){
+                    if (it.name == quizname) {
                         QuestionScreen(navigator, it)
                     }
                 }
@@ -33,12 +35,19 @@ internal fun navigation() {
         }
         scene(
             route = "/score/{score}/{quizSize}",
-            navTransition = NavTransition()) { backStackEntry ->
+            navTransition = NavTransition()
+        ) { backStackEntry ->
             val score: Int? = backStackEntry.path<Int>("score")
             val quizSize: Int? = backStackEntry.path<Int>("quizSize")
             if (score != null && quizSize != null) {
                 ScoreScreen(navigator, score, quizSize)
             }
+        }
+        scene(
+            route = "/create",
+            navTransition = NavTransition()
+        ) {
+            CreateScreen(navigator)
         }
     }
 }
