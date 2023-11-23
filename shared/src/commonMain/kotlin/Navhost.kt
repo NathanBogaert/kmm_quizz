@@ -25,17 +25,20 @@ internal fun navigation() {
             route = "/quiz/{quizName}",
             navTransition = NavTransition()
         ) { backStackEntry ->
-            /*val questions = quizRepository.questionState.collectAsState()
-            println(questions.value)
-
-            if (questions.value.isNotEmpty()) {
-                QuestionScreen(navigator, questions.value)
-            }*/
             val quizName: String? = backStackEntry.path<String>("quizName")
             if (quizName != null) {
-                quizList.forEach {
-                    if (it.name == quizName) {
-                        QuestionScreen(navigator, it.questions)
+                if (quizName == "JsonQuiz") {
+                    val questions = quizRepository.questionState.collectAsState()
+                    println(questions.value)
+
+                    if (questions.value.isNotEmpty()) {
+                        QuestionScreen(navigator, questions.value)
+                    }
+                } else {
+                    quizList.forEach {
+                        if (it.name == quizName) {
+                            QuestionScreen(navigator, it.questions)
+                        }
                     }
                 }
             }

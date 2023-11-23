@@ -24,6 +24,5 @@ class QuizAPI {
     suspend fun getAllQuestions(): Quiz {
         return httpClient.get("https://raw.githubusercontent.com/worldline/learning-kotlin-multiplatform/main/quiz.json")
             .body()
-        //return httpClient.get("http://localhost:8080").body()
     }
 }
