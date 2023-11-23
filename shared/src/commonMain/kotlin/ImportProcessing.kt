@@ -74,7 +74,7 @@ fun ImportProcess(navigator: Navigator, url: String) {
         }
         try{
             val newquiz= Json.decodeFromString<Quiz>(data.toString())
-            result="Trouvé un quiz de ${newquiz.questions.count()} questions"
+            result="Found a quiz with ${newquiz.questions.count()} questions!"
             importedQuiz=newquiz
         }catch(t: Throwable) {
             println(UrlEncoderUtil.encode(t.toString()))
@@ -90,22 +90,7 @@ fun ImportProcess(navigator: Navigator, url: String) {
                     Text(
                         text = result
                     )
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Button(
-                            colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
-                            modifier = Modifier.padding(10.dp),
-                            onClick = {
-                                navigator.navigate("/import")
-                            }) {
-                            Icon(
-                                Icons.Rounded.ArrowBack,
-                                contentDescription = null,
-                                modifier = Modifier.padding(end = 12.dp)
-                            )
-                            Text(
-                                text = "Back"
-                            )
-                        }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Button(
                             colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
                             onClick = {
@@ -120,6 +105,21 @@ fun ImportProcess(navigator: Navigator, url: String) {
                             )
                             Text(
                                 text = "Import"
+                            )
+                        }
+                        Button(
+                            colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
+                            modifier = Modifier.padding(10.dp),
+                            onClick = {
+                                navigator.navigate("/import")
+                            }) {
+                            Icon(
+                                Icons.Rounded.ArrowBack,
+                                contentDescription = null,
+                                modifier = Modifier.padding(end = 12.dp)
+                            )
+                            Text(
+                                text = "Back"
                             )
                         }
                     }

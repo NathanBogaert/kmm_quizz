@@ -20,9 +20,6 @@ kotlin {
             isStatic = true
         }
     }
-    repositories{
-        mavenCentral()
-    }
     sourceSets {
         val commonMain by getting {
             dependencies {
