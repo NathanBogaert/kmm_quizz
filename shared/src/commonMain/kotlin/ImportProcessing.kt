@@ -94,7 +94,8 @@ fun ImportProcess(navigator: Navigator, url: String) {
                         Button(
                             colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
                             onClick = {
-                                quizList+=importedQuiz
+                                importedQuiz.name="My imported quiz ${importedquizList.count()+1}"
+                                importedquizList+=importedQuiz
                                 navigator.navigate(route = "/import/${UrlEncoderUtil.encode("Import succeessful!")}")
                             }
                         ) {

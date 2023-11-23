@@ -71,6 +71,7 @@ val quiz3 = Quiz(
     listOf(Question(2, "La réponse est Oui", 2, listOf(Answer(1, "Non"), Answer(2, "Oui"))))
 )
 var quizList = listOf(quiz1, quiz2, quiz3)
+var importedquizList = emptyList<Quiz>()
 
 expect fun getPlatformName(): String
 

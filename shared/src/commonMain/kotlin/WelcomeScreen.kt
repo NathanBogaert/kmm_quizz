@@ -48,38 +48,38 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Quiz",
+                        text = "Select a quiz",
                         fontSize = 28.sp
                     )
                     Text(
-                        text = "Select a quiz",
-                        modifier = Modifier.padding(top = 13.dp, bottom = 5.dp).fillMaxWidth(.5f)
+                        text = if(importedquizList.isEmpty()) "Imported quiz\n\nNothing here!" else "Imported quiz",
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(top = 13.dp, bottom = 5.dp)
                     )
-                    Text(
-                        text = "Json import quiz",
-                        fontSize = 14.sp
-                    )
-                    Row {
-                        DropdownMenuItem(onClick = {
-                            selectedQuiz = "JsonQuiz"
-                        }, modifier = Modifier.fillMaxWidth(.5f)) {
-                            if (selectedQuiz == "JsonQuiz") {
-                                isQuizSelected = true
-                                buttonColor = getPrimaryColor()
-                                Icon(
-                                    Icons.Rounded.Check,
-                                    contentDescription = null,
-                                    modifier = Modifier.padding(end = 10.dp, bottom = 12.dp)
-                                        .align(Alignment.Bottom)
-                                        .background(getPrimaryColor())
-                                )
+                    importedquizList.forEach { i ->
+                        Row {
+                            DropdownMenuItem(onClick = {
+                                selectedQuiz = i.name
+                            }, modifier = Modifier.fillMaxWidth(.5f)) {
+                                if (selectedQuiz == i.name) {
+                                    isQuizSelected = true
+                                    buttonColor = getPrimaryColor()
+                                    Icon(
+                                        Icons.Rounded.Check,
+                                        contentDescription = null,
+                                        modifier = Modifier.padding(end = 10.dp, bottom = 12.dp)
+                                            .align(Alignment.Bottom)
+                                            .background(getPrimaryColor())
+                                    )
+                                }
+                                Text(i.name)
                             }
-                            Text("Json Quiz")
                         }
                     }
                     Text(
-                        text = "Local quiz",
-                        fontSize = 14.sp
+                        text = if(quizList.isEmpty()) "Local quiz\n\nNothing here!" else "Local quiz",
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(top = 13.dp, bottom = 5.dp)
                     )
                     quiz.forEach { i ->
                         Row {

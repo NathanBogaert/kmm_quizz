@@ -8,6 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -45,7 +46,12 @@ fun ScoreScreen(navigator: Navigator, score: Int, questionNumber: Int) {
                         fontSize = 28.sp,
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
-                    Button(onClick = { navigator.navigate(route = "/welcome") }) {
+                    Button(
+                        colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
+                        onClick = {
+                            navigator.navigate(route = "/welcome")
+                        }
+                    ) {
                         Icon(
                             Icons.Rounded.Refresh,
                             contentDescription = null,

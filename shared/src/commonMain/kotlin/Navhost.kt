@@ -35,9 +35,19 @@ internal fun navigation() {
                         QuestionScreen(navigator, questions.value)
                     }
                 } else {
+                    var found=false
                     quizList.forEach {
                         if (it.name == quizName) {
+                            found=true
                             QuestionScreen(navigator, it.questions)
+                        }
+                    }
+                    if(!found){
+                        importedquizList.forEach {
+                            if (it.name == quizName) {
+                                found=true
+                                QuestionScreen(navigator, it.questions)
+                            }
                         }
                     }
                 }
