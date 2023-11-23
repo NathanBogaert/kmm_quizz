@@ -1,9 +1,11 @@
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.navigation.transition.NavTransition
 
+private val quizRepository = QuizRepository()
 
 @Composable
 internal fun navigation() {
@@ -20,17 +22,22 @@ internal fun navigation() {
             WelcomeScreen(navigator, quizList)
         }
         scene(
-            route = "/quiz/{quizname}",
+            route = "/quiz/{quizName}",
             navTransition = NavTransition()
         ) { backStackEntry ->
-            val quizname: String? = backStackEntry.path<String>("quizname")
-            if (quizname != null) {
+            /*val questions = quizRepository.questionState.collectAsState()
+            println(questions.value)
+
+            if (questions.value.isNotEmpty()) {
+                QuestionScreen(navigator, questions.value)
+            }*/
+            val quizName: String? = backStackEntry.path<String>("quizName")
+            if (quizName != null) {
                 quizList.forEach {
-                    if (it.name == quizname) {
-                        QuestionScreen(navigator, it)
+                    if (it.name == quizName) {
+                        QuestionScreen(navigator, it.questions)
                     }
                 }
-
             }
         }
         scene(
@@ -61,15 +68,15 @@ internal fun navigation() {
         ) {
             val importError: String? = it.path<String>("importerror")
             println(importError)
-            ImportScreen(navigator,importError)
+            ImportScreen(navigator, importError)
         }
         scene(
             route = "/import_process/{url}",
             navTransition = NavTransition()
         ) {
             val url: String? = it.path<String>("url")
-            if(url!=null && url!=""){
-                ImportProcess(navigator,url)
+            if (url != null && url != "") {
+                ImportProcess(navigator, url)
             }
 
         }

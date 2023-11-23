@@ -7,19 +7,12 @@ import network.data.Question
 import network.data.Quiz
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-private val repository = QuizRepository()
-
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
     PreComposeApp {
         MaterialTheme {
             navigation()
-            /*val questions = repository.questionState.collectAsState()
-            println(questions.value)
-            if (questions.value.isNotEmpty()) {
-                QuestionScreen(navigator = Navigator(), questions.value)
-            }*/
         }
     }
 }

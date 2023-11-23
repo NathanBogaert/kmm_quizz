@@ -84,7 +84,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             onClick = {
                                 navigator.navigate(route = "/quiz/$selectedQuiz")
                             },
-                            modifier = Modifier.padding(10.dp)
+                            modifier = Modifier.padding(2.dp)
                         ) {
                             Text("Start $selectedQuiz")
                         }
@@ -93,7 +93,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             onClick = {
                                 navigator.navigate(route = "/create")
                             },
-                            modifier = Modifier.padding(10.dp)
+                            modifier = Modifier.padding(2.dp)
                         ) {
                             Text("Create a quiz")
                         }
@@ -102,7 +102,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             onClick = {
                                 navigator.navigate(route = "/import")
                             },
-                            modifier = Modifier.padding(10.dp)
+                            modifier = Modifier.padding(2.dp)
                         ) {
                             Text("Import from URL")
                         }
