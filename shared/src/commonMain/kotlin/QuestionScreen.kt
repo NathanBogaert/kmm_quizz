@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
@@ -66,6 +67,7 @@ fun QuestionScreen(navigator: Navigator, quiz: Quiz) {
                     if (answerSelected == quiz.questions[questionProgress].correctId) score++
                     if (questionProgress < (quiz.questions.size - 1)) questionProgress++ else navigator
                         .navigate(route = "/score/$score/${quiz.questions.size}")},
+                    colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
                     modifier = Modifier.padding(bottom = 25.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(

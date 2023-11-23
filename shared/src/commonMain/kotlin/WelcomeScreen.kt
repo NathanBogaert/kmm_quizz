@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -31,6 +32,10 @@ import moe.tlaster.precompose.navigation.Navigator
 @Composable
 fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
     var selectedQuiz by remember { mutableStateOf("") }
+    var isQuizSelected by remember { mutableStateOf(false) }
+    val primaryDarkColor = getPrimaryDarkColor()
+    var buttonColor by remember { mutableStateOf(primaryDarkColor) }
+
     lateinit var quizSelect: Quiz
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
@@ -51,12 +56,17 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             }, modifier = Modifier.fillMaxWidth(.5f)) {
                                 Text(i.name)
                                 if (selectedQuiz == i.name) {
+                                    isQuizSelected = true
+                                    buttonColor = getPrimaryColor()
                                     Icon(Icons.Rounded.Check, contentDescription = null, modifier = Modifier.padding(start = 10.dp, bottom = 12.dp).align(Alignment.Bottom).background(getPrimaryColor()))
                                 }
                             }
                         }
                     }
-                    Button(onClick = {
+                    Button(
+                        enabled = isQuizSelected,
+                        colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
+                        onClick = {
                         for (i in quiz) {
                             if (i.name == selectedQuiz) {
                                 quizSelect = i

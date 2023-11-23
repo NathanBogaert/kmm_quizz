@@ -9,6 +9,6 @@ fun MainViewController() = ComposeUIViewController { App() }
 
 @Composable actual fun getForegroundColor(): Color = Color.Black
 
-@Composable actual fun getPrimaryColor(): Color = Color.Gray
+@Composable actual fun getPrimaryColor(): Color = Color(72, 164, 255)
 
-@Composable actual fun getPrimaryDarkColor(): Color = Color.DarkGray
+@Composable actual fun getPrimaryDarkColor(): Color = Color(0, 128, 255)
