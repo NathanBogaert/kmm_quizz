@@ -52,10 +52,17 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                         fontSize = 28.sp
                     )
                     Text(
-                        text = if(importedquizList.isEmpty()) "Imported quiz\n\nNothing here!" else "Imported quiz",
+                        text = "Imported quiz",
                         fontSize = 14.sp,
                         modifier = Modifier.padding(top = 13.dp, bottom = 5.dp)
                     )
+                    if(importedquizList.isEmpty()){
+                        Text(
+                            text = "Nothing here! Import a quiz from a supported URL to get started.",
+                            fontSize = 10.sp,
+                            modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
+                        )
+                    }
                     importedquizList.forEach { i ->
                         Row {
                             DropdownMenuItem(onClick = {
@@ -81,6 +88,13 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                         fontSize = 14.sp,
                         modifier = Modifier.padding(top = 13.dp, bottom = 5.dp)
                     )
+                    if(quizList.isEmpty()){
+                        Text(
+                            text = "Nothing here! Create a quiz to get started.",
+                            fontSize = 10.sp,
+                            modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
+                        )
+                    }
                     quiz.forEach { i ->
                         Row {
                             DropdownMenuItem(onClick = {
