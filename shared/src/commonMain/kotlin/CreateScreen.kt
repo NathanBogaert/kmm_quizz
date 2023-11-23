@@ -157,52 +157,73 @@ fun CreateScreen(navigator: Navigator) {
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.padding(bottom = 10.dp, end = 40.dp).fillMaxWidth()
                 )
-                Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
-                    onClick = {
-                    if (answerStr4 != "" && answerStr3 == "") {
-                        println("Vous ne pouvez pas mettre de réponse 4 sans réponse 3")
-                    } else if ((correctAnswer == 3) && (answerStr3 == "")) {
-                        println("Vous ne pouvez pas choisir la réponse 3 comme bonne réponse si il n'y a pas de réponse 3")
-                    } else if ((correctAnswer == 4) && (answerStr4 == "")) {
-                        println("Vous ne pouvez pas choisir la réponse 4 comme bonne réponse si il n'y a pas de réponse 4")
-                    } else if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
-                        val answerList = mutableListOf<Answer>()
-                        answerList += Answer(id = 1, label = answerStr1)
-                        answerList += Answer(id = 2, label = answerStr2)
-                        if (answerStr3 != "") answerList += Answer(
-                            id = 3,
-                            label = answerStr3
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(
+                        colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
+                        modifier = Modifier.padding(10.dp),
+                        onClick = {
+                            navigator.navigate("/welcome")
+                        }) {
+                        Icon(
+                            Icons.Rounded.ArrowBack,
+                            contentDescription = null,
+                            modifier = Modifier.padding(end = 12.dp)
                         )
-                        if (answerStr3 != "" && answerStr4 != "") answerList += Answer(
-                            id = 4,
-                            label = answerStr4
+                        Text(
+                            text = "Back"
                         )
-                        questions += Question(
-                            id = questionId,
-                            label = questionStr,
-                            correctId = correctAnswer,
-                            answers = answerList
-                        )
-                        println(questions)
-                        questionStr = ""
-                        answerStr1 = ""
-                        answerStr2 = ""
-                        answerStr3 = ""
-                        answerStr4 = ""
-                        questionId++
-                        correctAnswer = 1
                     }
-                }) {
-                    Icon(
-                        Icons.Rounded.ArrowBack,
-                        contentDescription = null,
-                        modifier = Modifier.rotate(180f).padding(start = 12.dp)
-                    )
-                    Text(
-                        text = "Next"
-                    )
+                    Button(
+                        colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
+                        modifier = Modifier.padding(10.dp),
+                        onClick = {
+                            if (answerStr4 != "" && answerStr3 == "") {
+                                println("Vous ne pouvez pas mettre de réponse 4 sans réponse 3")
+                            } else if ((correctAnswer == 3) && (answerStr3 == "")) {
+                                println("Vous ne pouvez pas choisir la réponse 3 comme bonne réponse si il n'y a pas de réponse 3")
+                            } else if ((correctAnswer == 4) && (answerStr4 == "")) {
+                                println("Vous ne pouvez pas choisir la réponse 4 comme bonne réponse si il n'y a pas de réponse 4")
+                            } else if ((quizName != "") && (questionStr != "") && (answerStr1 != "") && (answerStr2 != "")) {
+                                val answerList = mutableListOf<Answer>()
+                                answerList += Answer(id = 1, label = answerStr1)
+                                answerList += Answer(id = 2, label = answerStr2)
+                                if (answerStr3 != "") answerList += Answer(
+                                    id = 3,
+                                    label = answerStr3
+                                )
+                                if (answerStr3 != "" && answerStr4 != "") answerList += Answer(
+                                    id = 4,
+                                    label = answerStr4
+                                )
+                                questions += Question(
+                                    id = questionId,
+                                    label = questionStr,
+                                    correctId = correctAnswer,
+                                    answers = answerList
+                                )
+                                println(questions)
+                                questionStr = ""
+                                answerStr1 = ""
+                                answerStr2 = ""
+                                answerStr3 = ""
+                                answerStr4 = ""
+                                questionId++
+                                correctAnswer = 1
+                            }
+                        }) {
+                        Icon(
+                            Icons.Rounded.ArrowBack,
+                            contentDescription = null,
+                            modifier = Modifier.rotate(180f).padding(start = 12.dp)
+                        )
+                        Text(
+                            text = "Next"
+                        )
+                    }
                 }
+
                 Button(
                     colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
                     onClick = {
@@ -241,18 +262,7 @@ fun CreateScreen(navigator: Navigator) {
                         text = "Finish"
                     )
                 }
-                Button(onClick = {
-                    navigator.navigate("/welcome")
-                }) {
-                    Icon(
-                        Icons.Rounded.ArrowBack,
-                        contentDescription = null,
-                        modifier = Modifier.padding(end = 12.dp)
-                    )
-                    Text(
-                        text = "Back"
-                    )
-                }
+
             }
         }
     }

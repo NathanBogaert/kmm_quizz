@@ -49,5 +49,21 @@ internal fun navigation() {
         ) {
             CreateScreen(navigator)
         }
+        scene(
+            route = "/import",
+            navTransition = NavTransition()
+        ) {
+            ImportScreen(navigator)
+        }
+        scene(
+            route = "/import_process/{url}",
+            navTransition = NavTransition()
+        ) {
+            val url: String? = it.path<String>("url")
+            if(url!=null && url!=""){
+                ImportProcess(navigator,url)
+            }
+
+        }
     }
 }

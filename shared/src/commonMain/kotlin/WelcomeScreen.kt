@@ -75,7 +75,9 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             }
                         }
                     }
-                    Row {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Button(
                             enabled = isQuizSelected,
                             colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
@@ -94,6 +96,15 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                             modifier = Modifier.padding(10.dp)
                         ) {
                             Text("Create a quiz")
+                        }
+                        Button(
+                            colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryDarkColor()),
+                            onClick = {
+                                navigator.navigate(route = "/import")
+                            },
+                            modifier = Modifier.padding(10.dp)
+                        ) {
+                            Text("Import from URL")
                         }
                     }
                 }
