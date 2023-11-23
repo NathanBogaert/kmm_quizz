@@ -14,6 +14,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -53,12 +54,12 @@ fun ScoreScreen(navigator: Navigator, score: Int, questionNumber: Int) {
                         }
                     ) {
                         Icon(
-                            Icons.Rounded.Refresh,
+                            Icons.Rounded.Home,
                             contentDescription = null,
                             modifier = Modifier.padding(end = 12.dp)
                         )
                         Text(
-                            text = "Retake the quiz"
+                            text = "Back to menu"
                         )
                     }
                 }
