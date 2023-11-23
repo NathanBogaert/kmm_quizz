@@ -56,6 +56,14 @@ internal fun navigation() {
             ImportScreen(navigator)
         }
         scene(
+            route = "/import/{importerror}",
+            navTransition = NavTransition()
+        ) {
+            val importError: String? = it.path<String>("importerror")
+            println(importError)
+            ImportScreen(navigator,importError)
+        }
+        scene(
             route = "/import_process/{url}",
             navTransition = NavTransition()
         ) {

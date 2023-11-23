@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.ResponseException
 import io.ktor.client.request.get
 import io.ktor.http.decodeURLPart
 import io.ktor.utils.io.core.use
@@ -38,6 +39,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import moe.tlaster.precompose.navigation.Navigator
+import net.thauvin.erik.urlencoder.UrlEncoderUtil
 
 suspend fun getURLData(url: String): String {
     return HttpClient().use { client ->
@@ -50,9 +52,17 @@ fun ImportProcess(navigator: Navigator, url: String) {
     var result by remember { mutableStateOf("Loading") }
     LaunchedEffect(url) {
         val data = withContext(Dispatchers.IO) {
-            getURLData(url)
+            try {
+                getURLData(url)
+            }catch (ex: ResponseException){
+                println(UrlEncoderUtil.encode(ex.toString()))
+                navigator.navigate(route = "/import/ResponseException!-${UrlEncoderUtil.encode(ex.toString())}")
+            } catch (t: Throwable) {
+                println(UrlEncoderUtil.encode(t.toString()))
+                navigator.navigate(route = "/import/NetworkFailure!-${UrlEncoderUtil.encode(t.toString())}")
+            }
         }
-        result = data
+        result = data.toString()
     }
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {

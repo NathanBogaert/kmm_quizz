@@ -27,19 +27,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.ktor.http.encodeURLPath
 import moe.tlaster.precompose.navigation.Navigator
+import net.thauvin.erik.urlencoder.UrlEncoderUtil
 import network.data.Quiz
-import java.net.URLEncoder
-import java.net.URLDecoder
 
 @Composable
-fun ImportScreen(navigator: Navigator) {
-    var importedURL by remember { mutableStateOf("https://my-quiz-url.json") }
+fun ImportScreen(navigator: Navigator, importError: String?=null) {
+    var importedURL by remember { mutableStateOf("") }
+    //https://raw.githubusercontent.com/worldline/learning-kotlin-multiplatform/main/quiz.json
     val primaryDarkColor = getPrimaryDarkColor()
     var buttonColor by remember { mutableStateOf(primaryDarkColor) }
+    var importedError by remember { mutableStateOf("") }
+    importedError= (if(importError!=null) UrlEncoderUtil.decode(importError) else "").toString()
     MaterialTheme {
         Box(modifier = Modifier.background(Color.Gray).fillMaxSize()) {
             Card(
@@ -77,13 +80,18 @@ fun ImportScreen(navigator: Navigator) {
                         Button(
                                 colors = ButtonDefaults.buttonColors(backgroundColor = getPrimaryColor()),
                         onClick = {
-                            navigator.navigate(route = "/import_process/${URLEncoder.encode(importedURL, "UTF-8")}")
+                            if(importedURL!="") navigator.navigate(route = "/import_process/${UrlEncoderUtil.encode(importedURL)}")
                         },
                         modifier = Modifier.padding(10.dp)
                         ) {
                         Text("Import this quiz")
                     }
                     }
+                    Text(
+                        text = if(importError!=null) UrlEncoderUtil.decode(importError) else "",
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center,
+                    )
 
                 }
             }
