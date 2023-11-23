@@ -25,7 +25,7 @@ fun App() {
 }
 
 val quiz1 = Quiz(
-    "Test network.data.Quiz",
+    "Test Quiz",
     listOf(
         Question(1, "La réponse est Oui", 1, listOf(Answer(1, "Oui"), Answer(2, "Non"))),
         Question(2, "La réponse est Oui", 2, listOf(Answer(1, "Non"), Answer(2, "Oui"))),
@@ -74,7 +74,7 @@ val quiz2 = Quiz(
     )
 )
 val quiz3 = Quiz(
-    "network.data.Quiz avec une question",
+    "Quiz avec une question",
     listOf(Question(2, "La réponse est Oui", 2, listOf(Answer(1, "Non"), Answer(2, "Oui"))))
 )
 var quizList = listOf(quiz1, quiz2, quiz3)

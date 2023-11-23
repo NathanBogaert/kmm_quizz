@@ -57,7 +57,7 @@ fun CreateScreen(navigator: Navigator) {
                         onValueChange = {
                             if (it.length <= 128) quizName = it
                         },
-                        label = { Text("network.data.Quiz name") },
+                        label = { Text("Quiz name") },
                         modifier = Modifier.padding(top = 25.dp).fillMaxWidth()
                     )
                     Text(
@@ -76,7 +76,7 @@ fun CreateScreen(navigator: Navigator) {
                 TextField(
                     value = questionStr,
                     onValueChange = { if (it.length <= 128) questionStr = it },
-                    label = { Text("network.data.Question") },
+                    label = { Text("Question") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
@@ -239,6 +239,18 @@ fun CreateScreen(navigator: Navigator) {
                     )
                     Text(
                         text = "Finish"
+                    )
+                }
+                Button(onClick = {
+                    navigator.navigate("/welcome")
+                }) {
+                    Icon(
+                        Icons.Rounded.ArrowBack,
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = 12.dp)
+                    )
+                    Text(
+                        text = "Back"
                     )
                 }
             }

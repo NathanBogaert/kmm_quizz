@@ -1,0 +1,46 @@
+CREATE TABLE Quiz (
+    name VARCHAR(128) NOT NULL PRIMARY KEY,
+    questions JSON NOT NULL
+);
+
+CREATE TABLE Question (
+    id INTEGER NOT NULL PRIMARY KEY,
+    label VARCHAR(128) NOT NULL,
+    correctId INTEGER NOT NULL,
+    answers JSON NOT NULL
+);
+
+CREATE TABLE Answer (
+    id INTEGER NOT NULL PRIMARY KEY,
+    label VARCHAR(128) NOT NULL
+);
+
+insertQuiz:
+INSERT INTO Quiz(name, questions)
+VALUES (?, ?);
+
+selectAllQuiz:
+SELECT * FROM Quiz;
+
+deleteQuiz:
+DELETE FROM Quiz WHERE name = ?;
+
+insertQuestion:
+INSERT INTO Question(id, label, correctId, answers)
+VALUES (?, ?, ?, ?);
+
+selectAllQuestion:
+SELECT * FROM Question;
+
+deleteQuestion:
+DELETE FROM Question WHERE id = ?;
+
+insertAnswer:
+INSERT INTO Answer(id, label)
+VALUES (?, ?);
+
+selectAllAnswer:
+SELECT * FROM Answer;
+
+deleteAnswer:
+DELETE FROM Answer WHERE id = ?;

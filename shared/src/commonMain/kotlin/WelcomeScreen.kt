@@ -48,7 +48,7 @@ fun WelcomeScreen(navigator: Navigator, quiz: List<Quiz>) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "network.data.Quiz",
+                        text = "Quiz",
                         fontSize = 28.sp
                     )
                     Text(
